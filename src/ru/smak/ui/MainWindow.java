@@ -29,6 +29,12 @@ public class MainWindow extends JFrame {
 
     private JButton btnExit;
 
+    private JCheckBox cbPoints;
+    private JCheckBox cbPolynomial;
+    private JCheckBox cbDerivative;
+    private JPanel pPoints;
+    private JPanel pPolynomial;
+    private JPanel pDerivative;
 
 
     public MainWindow(){
@@ -62,7 +68,7 @@ public class MainWindow extends JFrame {
         glSettings.setVerticalGroup(glSettings.createSequentialGroup()
                 .addGap(8)
                 .addGroup(glSettings.createParallelGroup(GroupLayout.Alignment.CENTER)
-                        .addGroup(glSettings.createParallelGroup()
+                        .addGroup(glSettings.createParallelGroup(GroupLayout.Alignment.CENTER)
                                 .addGroup(glSettings.createSequentialGroup()
                                         .addComponent(lblXMin, MIN_SZ, MIN_SZ, MIN_SZ)
                                         .addGap(8)
@@ -82,6 +88,22 @@ public class MainWindow extends JFrame {
                                         .addComponent(spXMax, MIN_SZ, MIN_SZ, MIN_SZ)
                                         .addGap(8)
                                         .addComponent(spYMax, MIN_SZ, MIN_SZ, MIN_SZ)
+                                )
+                                .addGroup(glSettings.createSequentialGroup()
+                                        .addComponent(cbPoints, MIN_SZ,MIN_SZ, MIN_SZ)
+                                        .addGap(8)
+                                        .addComponent(cbPolynomial, MIN_SZ,MIN_SZ, MIN_SZ)
+                                        .addGap(8)
+                                        .addComponent(cbDerivative, MIN_SZ,MIN_SZ, MIN_SZ)
+
+                                )
+                                .addGroup(glSettings.createSequentialGroup()
+                                        .addComponent(pPoints, 24, 24, 24)
+                                        .addGap(8)
+                                        .addComponent(pPolynomial, 24, 24, 24)
+                                        .addGap(8)
+                                        .addComponent(pDerivative, 24, 24, 24)
+
                                 )
                         )
                         .addComponent(btnExit, MIN_SZ, MIN_SZ, MIN_SZ)
@@ -110,6 +132,18 @@ public class MainWindow extends JFrame {
                         .addComponent(spYMax, 100, MIN_SZ, MIN_SZ)
                 )
                 .addGap(8, 8, Integer.MAX_VALUE)
+                .addGroup(glSettings.createParallelGroup()
+                        .addComponent(cbPoints, MIN_SZ, MIN_SZ, MIN_SZ)
+                        .addComponent(cbPolynomial, MIN_SZ, MIN_SZ, MIN_SZ)
+                        .addComponent(cbDerivative, MIN_SZ, MIN_SZ, MIN_SZ)
+                )
+                .addGap(8)
+                .addGroup(glSettings.createParallelGroup()
+                        .addComponent(pPoints, 24, 24, 24)
+                        .addComponent(pPolynomial, 24, 24, 24)
+                        .addComponent(pDerivative, 24, 24, 24)
+                )
+                .addGap(8)
                 .addComponent(btnExit, MIN_SZ, MIN_SZ, MIN_SZ)
                 .addGap(8)
         );
@@ -165,6 +199,17 @@ public class MainWindow extends JFrame {
             var result = JColorChooser.showDialog(this, "Цвет панели", Color.BLUE);
             mainPanel.setBackground(result);
         });
+
+        cbPoints = new JCheckBox("Показывать точки", true);
+        cbPolynomial = new JCheckBox("Показывать полином", true);
+        cbDerivative = new JCheckBox("Показывать производную", false);
+
+        pPoints = new JPanel();
+        pPoints.setBackground(Color.RED);
+        pPolynomial = new JPanel();
+        pPolynomial.setBackground(Color.BLUE);
+        pDerivative = new JPanel();
+        pDerivative.setBackground(Color.GRAY);
     }
 }
 
