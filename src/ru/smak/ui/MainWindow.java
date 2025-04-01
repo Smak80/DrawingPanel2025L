@@ -3,11 +3,15 @@ package ru.smak.ui;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 
 public class MainWindow extends JFrame {
     private static final int MIN_SZ = GroupLayout.PREFERRED_SIZE;
     private static final int MAX_SZ = GroupLayout.DEFAULT_SIZE;
+
+    private final CartesianPainter cp = new CartesianPainter();
 
     private JPanel mainPanel;
     private JPanel controlPanel;
@@ -116,7 +120,22 @@ public class MainWindow extends JFrame {
     }
 
     private void initComponents(){
-        mainPanel = new JPanel();
+        mainPanel = new JPanel(){
+            @Override
+            public void paint(Graphics g){
+                super.paint(g);
+                //Graphics g = mainPanel.getGraphics();
+
+                // Рисование графических примитивов
+                /*g.setColor(Color.RED);
+                g.fillOval(30, 30, 250, 250);
+                g.setColor(Color.BLUE);
+                g.drawRect(300, 30, 100, 200);*/
+                cp.setWidth(mainPanel.getWidth());
+                cp.setHeight(mainPanel.getHeight());
+                cp.paint(g);
+            }
+        };
         mainPanel.setBackground(Color.WHITE);
         controlPanel = new JPanel();
         controlPanel.setBorder(
@@ -161,9 +180,10 @@ public class MainWindow extends JFrame {
         btnExit = new JButton();
         btnExit.setText("Выход");
         btnExit.addActionListener(e -> {
-            //dispose();
-            var result = JColorChooser.showDialog(this, "Цвет панели", Color.BLUE);
-            mainPanel.setBackground(result);
+
+            dispose(); // выход
+            /*var result = JColorChooser.showDialog(this, "Цвет панели", Color.BLUE);
+            mainPanel.setBackground(result);*/ // -- открытие диалога выбора цвета
         });
     }
 }
