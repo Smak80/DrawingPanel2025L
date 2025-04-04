@@ -6,6 +6,9 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class MainWindow extends JFrame {
     private static final int MIN_SZ = GroupLayout.PREFERRED_SIZE;
@@ -137,6 +140,24 @@ public class MainWindow extends JFrame {
             }
         };
         mainPanel.setBackground(Color.WHITE);
+        mainPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // В лабораторной работе использовать специльный класс
+                // PointsPainter, в котором хранить ДЕКАРТОВЫЕ координаты
+                // точек, указанных пользователем.
+                // В классе должен быть реализован метод paint(Grpahics g),
+                // из интерфейса Painter, с помощью которых коллекция
+                // точек будет отображаться на экране.
+                // Вызов метода paint осуществлять при перерисовке панели.
+
+                var clickPoint = e.getPoint();
+                var g = mainPanel.getGraphics();
+                g.setColor(Color.GREEN);
+                var sz = 12;
+                g.fillOval(clickPoint.x - sz / 2, clickPoint.y - sz / 2, sz, sz);
+            }
+        });
         controlPanel = new JPanel();
         controlPanel.setBorder(
                 new TitledBorder(

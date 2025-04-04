@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="DrawingPanel2025L:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/DrawingPanel2025L_jar</output-path>
+    <root id="archive" name="DrawingPanel2025L.jar">
+      <element id="module-output" name="DrawingPanel2025L" />
+      <element id="module-output" name="Converting" />
+    </root>
+  </artifact>
+</component>
