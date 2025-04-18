@@ -3,11 +3,18 @@ package ru.smak.ui;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class MainWindow extends JFrame {
     private static final int MIN_SZ = GroupLayout.PREFERRED_SIZE;
     private static final int MAX_SZ = GroupLayout.DEFAULT_SIZE;
+
+    private final CartesianPainter cp = new CartesianPainter();
 
     private JPanel mainPanel;
     private JPanel controlPanel;
@@ -150,8 +157,42 @@ public class MainWindow extends JFrame {
     }
 
     private void initComponents(){
-        mainPanel = new JPanel();
+        mainPanel = new JPanel(){
+            @Override
+            public void paint(Graphics g){
+                super.paint(g);
+                //Graphics g = mainPanel.getGraphics();
+
+                // Рисование графических примитивов
+                /*g.setColor(Color.RED);
+                g.fillOval(30, 30, 250, 250);
+                g.setColor(Color.BLUE);
+                g.drawRect(300, 30, 100, 200);*/
+                cp.setWidth(mainPanel.getWidth());
+                cp.setHeight(mainPanel.getHeight());
+                cp.paint(g);
+            }
+        };
         mainPanel.setBackground(Color.WHITE);
+        mainPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // В лабораторной работе использовать специльный класс
+                // PointsPainter, в котором хранить ДЕКАРТОВЫЕ координаты
+                // точек, указанных пользователем.
+                // В классе должен быть реализован метод paint(Grpahics g),
+                // из интерфейса Painter, с помощью которых коллекция
+                // точек будет отображаться на экране.
+                // Вызов метода paint осуществлять при перерисовке панели.
+
+                var clickPoint = e.getPoint();
+                var g = mainPanel.getGraphics();
+                g.setColor(Color.GREEN);
+                var sz = 12;
+                g.fillOval(clickPoint.x - sz / 2, clickPoint.y - sz / 2, sz, sz);
+            }
+        });
+
         controlPanel = new JPanel();
         controlPanel.setBorder(
                 new TitledBorder(
@@ -195,9 +236,10 @@ public class MainWindow extends JFrame {
         btnExit = new JButton();
         btnExit.setText("Выход");
         btnExit.addActionListener(e -> {
-            //dispose();
-            var result = JColorChooser.showDialog(this, "Цвет панели", Color.BLUE);
-            mainPanel.setBackground(result);
+
+            dispose(); // выход
+            /*var result = JColorChooser.showDialog(this, "Цвет панели", Color.BLUE);
+            mainPanel.setBackground(result);*/ // -- открытие диалога выбора цвета
         });
 
         cbPoints = new JCheckBox("Показывать точки", true);
