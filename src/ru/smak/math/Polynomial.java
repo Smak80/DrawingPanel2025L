@@ -4,7 +4,6 @@ public class Polynomial implements Function{
 
     @Override
     public double invoke(double x) {
-        //....
-        return 0.0;
+        return 2.0 * x * x * x - 3.0 * x * x + 4 * x - 1;
     }
 }

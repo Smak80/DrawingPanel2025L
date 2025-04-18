@@ -1,20 +1,23 @@
 package ru.smak.ui;
 
+import ru.smak.graphics.utils.Converter;
+import ru.smak.math.Polynomial;
+
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 
 public class MainWindow extends JFrame {
     private static final int MIN_SZ = GroupLayout.PREFERRED_SIZE;
     private static final int MAX_SZ = GroupLayout.DEFAULT_SIZE;
 
+    private final Converter conv = new Converter(-5.0, 5.0, -5.0, 5.0, 0, 0);
     private final CartesianPainter cp = new CartesianPainter();
+    private final FunctionPainter fp;
 
     private JPanel mainPanel;
     private JPanel controlPanel;
@@ -49,6 +52,9 @@ public class MainWindow extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         initComponents();
+        // Создаем построитель функций
+        var p = new Polynomial();
+        fp = new FunctionPainter(x -> { return p.invoke(x); }, conv);
 
         var gl = new GroupLayout(getContentPane());
         setLayout(gl);
@@ -171,9 +177,21 @@ public class MainWindow extends JFrame {
                 cp.setWidth(mainPanel.getWidth());
                 cp.setHeight(mainPanel.getHeight());
                 cp.paint(g);
+
+                /*fp.setWidth(mainPanel.getWidth());
+                fp.setHeight(mainPanel.getHeight());*/
+                fp.paint(g);
             }
         };
         mainPanel.setBackground(Color.WHITE);
+        mainPanel.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                super.componentResized(e);
+                conv.setWidth(mainPanel.getWidth());
+                conv.setHeight(mainPanel.getHeight());
+            }
+        });
         mainPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
