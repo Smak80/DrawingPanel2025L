@@ -158,6 +158,7 @@ public class MainWindow extends JFrame {
                 g.fillOval(clickPoint.x - sz / 2, clickPoint.y - sz / 2, sz, sz);
             }
         });
+
         controlPanel = new JPanel();
         controlPanel.setBorder(
                 new TitledBorder(
